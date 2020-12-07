@@ -4,22 +4,22 @@ export const COMPLETE_WORKOUT = 'COMPLETE_WORKOUT'
 export const UPDATE_WORKOUT = 'UPDATE_WORKOUT'
 
 
-function createWorkout(name, set, reps) {
+function createWorkout(name, sets, reps) {
     return {
         type: CREATE_WORKOUT,
         payload: {
             name,
-            set,
+            sets,
             reps
         }
     }
 }
 
-function deleteWorkout(index) {
+function deleteWorkout(id) {
     return {
         type: DELETE_WORKOUT,
         payload: {
-            index
+           id
         }
     }
 }

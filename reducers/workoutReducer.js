@@ -6,10 +6,17 @@ export default function workoutReducer(state = [], action) {
     switch (action.type) {
 
         case CREATE_WORKOUT:
-            return state
+
+            return [...state, {
+                name:action.payload.name, 
+                sets:action.payload.sets, 
+                reps: action.payload.reps }]
 
         case DELETE_WORKOUT:
-            return state
+            return state.filter((item, index) => action.payload.id !== index )
+            
+        
+           
 
         case UPDATE_WORKOUT:
             return state

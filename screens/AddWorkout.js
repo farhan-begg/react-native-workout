@@ -1,36 +1,35 @@
 import React, {useState } from 'react'
 import {StyleSheet, View ,Text, Button, SafeAreaView, TextInput} from 'react-native'
-
+import {createWorkout, deleteWorkout} from '../actions'
+import {useDispatch } from 'react-redux'
 
 export default function AddWorkout({ navigation }) {
     const [workoutTitle, setWorkoutTitle ] = useState('')
     const [workoutDescription, setWorkoutDescription ] = useState('')
 
+    const dispatch = useDispatch()
+
 
     function onSaveWorkout(){
-        navigation.state.params.AddWorkout(workoutTitle, workoutValue)
+        dispatch(createWorkout(workoutTitle, workoutDescription , 10) )
+        // navigation.state.params.Workout(workoutTitle, workoutDescription)
         navigation.goBack()
     }
     
     return (
         <>
         < SafeAreaView>
-            <Button 
-            style = {styles.Button}
-            onPress ={() =>navigation.goBack()}
-             title="go back"
-            >    
-            </Button>
-            <View style={{backgroundColor:'red'}}>
-                <TextInput
-                    label="Add Workout Title here"
+      
+            <View  style={styles.workout}>
+                <TextInput 
+                    placeholder="Add Workout Title here"
                     value={workoutTitle}
                     mode='outlined'
                     onChangeText={setWorkoutTitle}
                     style={styles.title}
                 />
-                <TextInput
-                    label="Add workout Description"
+                <TextInput style={styles.description}
+                    placeholder="Add workout Description"
                     value={workoutDescription}
                     onChangeText={setWorkoutDescription}
                     mode="flat"
@@ -49,6 +48,12 @@ export default function AddWorkout({ navigation }) {
                     >    
 
                      </Button>
+                     <Button 
+                        style = {styles.Button}
+                        onPress ={() =>navigation.goBack()}
+                        title="Back"
+                        >    
+                    </Button>
             </View>
         </ SafeAreaView>
         </>
@@ -56,33 +61,26 @@ export default function AddWorkout({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingVertical: 20,
-        paddingHorizontal: 10,
-     
+    workout: {
+        marginTop: 250,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+       
     },
     text: {
-        color: 'white'
+        color: 'black'
 
     },
-    iconButton:{
-        right: 0,
-        top: 40,
-        margin: 10
-    },
+
     title: {
-        fontSize: 24,
+        fontSize: 32,
         marginBottom: 16
     },
     text: {
-        height: 300,
-        fontSize: 16
+        height: 100,
+        fontSize: 24
     },
-       titleContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1
-    },
+
     
 })

@@ -12,9 +12,15 @@ import { Ionicons } from 'react-native-vector-icons'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducers from './reducers'
+import {loadState, saveState} from './utils'
 
 const Tab = createBottomTabNavigator();
-const store = createStore(reducers)
+
+const persistedState = loadState();
+const store = createStore(reducers, persistedState);
+store.subscribe(() => {
+  saveState(store.getState());
+})
 
 function App() {
   return (
@@ -25,9 +31,11 @@ function App() {
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
               if (route.name === 'Home') {
-                iconName = focused ? "md-home" : "md-home-outline"
+                iconName = focused ? "md-home" : "md-home"
               } else if (route.name === 'Workout') {
-                iconName = focused ? "workout" : "workout"
+                iconName = focused ? "ios-checkmark-circle-outline" : "ios-checkmark-circle-outline"
+              } else if (route.name === 'AddWorkout') {
+                iconName = focused ? "ios-add-circle" : "ios-add-circle"
               } else if (route.name === 'Data') {
                 iconName = focused ? 'ios-list-box' : 'ios-list';
               }
